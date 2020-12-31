@@ -4,17 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        form{
+            margin: 1em auto;
+            display:flex;
+            flex-flow: column nowrap;
+            padding: 1em;
+
+        }
+
+    body{
+        margin: 0;
+    }
+        
+        nav{
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7em;
+            background-color:#48BEB7;
+
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+            padding: 0.5em;
+
+        }
+
+
+        input{
+            margin: 1em auto;
+            padding: 1em;
+            background-color: #e6e6e6;
+            border: none;
+            border-radius: 8px;
+
+        }
+
+        [type="submit"]{
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            padding: 1em 3em;
+            cursor: pointer;
+        }
+        [type="submit"]:hover{
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            transition:all 0.7s;
+        }
+
+        form{
+            width:300px;
+            background-color:#2f2e417e ;
+            border-radius: 30px;
+            margin-top: 5em;
+            
+        }
+
+        .con{
+         display: flex;
+         width: 500px;
+         justify-content: flex-start;
+        }
+        img {
+            position: fixed;
+            top:3%;
+            left: 30%;
+            z-index: -100;
+        }
+        
+    </style>
 </head>
 <body>
-
+    <nav>
+        <div><a href="#">Logo</a></div>
+        <div><a href="#">Home</a><a href="#">About Us</a></div>
+    </nav>
+    <div class="con">
     <form action="{% url 'changeLink' %}" method="post">
         {% csrf_token %}
         <input name="name" type="text" placeholder="Enter Your Name" />
         <input name="enroll" type="number" placeholder="Enter Your Enroll" />
         <input type="text" name="file" value="{{ fileName }}" readonly />
         <input type="text" name="link" value="{{ filePath }}" readonly />
-        <input type="submit" value="login" />
+        <input type="submit" value="Submit" />
     </form>
-
+    </div>
+  {% load static %}
+<img src="{% static 'snow.svg' %}" alt="My image">
 </body>
 </html>

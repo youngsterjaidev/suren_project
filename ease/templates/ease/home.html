@@ -11,19 +11,31 @@
         }
 
         * {box-sizing: border-box;}
+
+        a {
+            text-decoration: none;
+            padding: 0em 1em;
+        }
+
+
         
 
         button {
-            padding: 1em;
+            padding: 0.5em;
             border: none;
             background: none;
+            margin: 0.2em;
             cursor: pointer;
-            margin: 1em;
+            transition: all 0.5s;
         }
 
-        h1 {
+        .heading {
             text-align: center;
-            background-color: #e6e6e6;
+            background-color: red;
+            color: #fff;
+            margin: 0;
+            padding: 1em;
+            font-size: 1.5rem;
 
         }
 
@@ -31,12 +43,46 @@
             background-color: aqua;
         }
 
+        button:focus, button:hover {
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.363);
+            outline: none;
+        }
+
         section > button + div {
             display: none;
         }
 
+        button > a:last-of-type {
+            display: none;
+        }
+
+        button:hover > a:last-of-type {
+            display: inline-block;
+            transition: all 3s;
+        }
+
         section > button:focus + div {
             display: block;
+            background-color: #000;
+            color: #fff;
+            outline: none;
+        }
+
+        form {
+            padding: 1em;
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        [type="text"] {
+            padding: 0.5em;
+            width: 100%;
+        }
+
+        [type="submit"] {
+            background: red;
+            border-radius: 4px;
+            color: #fff;
         }
 
         [type="checkbox"] + div {
@@ -57,28 +103,41 @@
             background-color: #e6e6e6;
             box-shadow: 5px 0px 15px black;
         }
+
+        #logoutBtn {
+            border: none;
+            padding: 0.7em;
+            margin: 1em 0.5em;
+            border-radius: 4px;
+            background-color: red;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-    <h1>Home</h1>
-    <a href="{% url 'logout' %}">logout</a>
+    <div class="heading">{{ user.username }}</div>
+    <div style="padding: 1em;">
+        <a href="{% url 'logout' %}" id="logoutBtn">logout</a>
+    </div>
     <div>
         <form method="POST" action="/suren">
             {% csrf_token %}
-            <input type="text" name="subject" placeholder="subject name">
-            <button type="submit">Create</button>
+            <input type="text" style="padding: 0.3em;" name="subject" placeholder="subject name">
+            <button type="submit" style="padding: 1em;">Create</button>
         </form>
     </div>
-    <div>
+        <h1 style="margin: 0em 3em">Attendence list</h1>
+    <div style="overflow-y: scroll; height: 400px; width: 40%; margin: 0em 0.5em;  position: relative;">
         {% for file in fileDataArr %}
             <section>
-                <button type="button"><i class="im im-file-o">{{ file.nameFile }}</i><a href="rel/{{user.email}}/{{ file.nameFile }}">{{ file.nameFile }}</a></button>
+                    <button type="button"><i class="im im-file-o">{{ file.nameFile }}</i><a href="rel/{{user.email}}/{{ file.nameFile }}">{{ file.nameFile }}</a><a href="#" class="im im-x-mark-circle"></a></button>
                 <!--<input type="checkbox">-->
                 <div class="sidebar">
-                   
+                  <div style="overflow-y: scroll;height: 95vh;">
                   {% for open in file.file_data  %}
-                    <div style="font-size: 1.5rem;">{{open}}</div>
+                    <div style="font-size: 2rem;">{{open}}</div>
                   {% endfor %} 
+                  </div>
  
                 </div>
             </section>

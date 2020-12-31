@@ -57,7 +57,7 @@ def create_account(request):
     create_folder = home.makedir(new_email)
     user_file = str(new_file) + '.txt'
     create_folder.writetext(user_file,"Attendence")
-    return HttpResponse('Account Created !')
+    return HttpResponseRedirect(reverse(index))
 
 def signup(request):
     return render(request, 'ease/signup.html')
@@ -81,7 +81,7 @@ def create_subject_file(request):
     select_current_folder = open_fs("~/log/" + new_email)
     date_file = request.POST["subject"] + "-" + str(today) + ".txt"
     select_current_folder.writetext(date_file, "Attendence")
-    return HttpResponseRedirect("rel/" + date_file)
+    return HttpResponseRedirect(reverse("index"))
 
 def flights(request, file_name, file_path):
     print(file_name, file_path)
@@ -94,6 +94,11 @@ def flights(request, file_name, file_path):
 def link(request):
     return render(request, 'ease/rel.html')
 
+def delete_link(request, file_name, file_path):
+    new_email = request.user.email.replace('@', '-')
+    select_current_folder = open_fs("~/log/" + new_email + file_name)
+    return HttpResponse("File Deleted !")
+
 def change_link(request):
     name = request.POST['name']
     enroll = request.POST['enroll']
@@ -102,7 +107,7 @@ def change_link(request):
     new_email = new_file_path.replace('@', '-')
     select_current_folder = open_fs("~/log/" + new_email)
     file_data = select_current_folder.open(update_file)
-    new_data = file_data.read() + str("#")  + name
+    new_data = file_data.read() + str("#")  + name + "-" + enroll
     select_current_folder.writetext(update_file, new_data)
-    return HttpResponse(new_data)
+    return HttpResponse("<h1>Thank You</h1>")
 

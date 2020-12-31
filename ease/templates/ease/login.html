@@ -4,21 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .container{
+            display: flex;
+            flex-flow: row nowrap;
+
+        }
+
+        form {
+            width: 50%;
+            display: flex;
+            flex-flow: column nowrap;
+            padding: 1em;
+            align-items: center;
+
+        }
+
+        input{
+            margin: 1em auto;
+            padding: 1em;
+            background-color: #e6e6e6;
+            border-radius: 8px;
+            border: none;
+            display: block;
+        }
+        
+        [type="submit"]{
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            padding: 1em 3em;
+            cursor: pointer;
+        }
+        [type="submit"]:hover{
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            transition:all 0.7s;
+        }
+
+        nav{
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7em;
+            background-color:#48BEB7;
+
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+            padding: 0.5em;
+
+        }
+
+        h1{
+            color:#48BEB7;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        hr{
+            border: 3px solid #48beb7;
+            width: 513px;
+            position: relative;
+            border-radius: 5px;
+            top: 0;
+            left:0;
+        }
+        
+        .bg{
+            background-color: #F1F7ED;
+            border: 1px solid #2F2E41;
+            border-radius: 10px;
+            width: 250px;
+            height:300px ;
+            padding-top: 1em;
+        }
+
+        img{
+            position: fixed;
+            top: 20px;
+            left:30%;
+            z-index: -3;
+
+        }
+        
+    </style>
 </head>
 <body>
-
+    <nav>
+        <div><a href="#">Logo</a></div>
+        <div><a href="#">Home</a><a href="#">About Us</a></div>
+    </nav>
+    <div>
+        <h1>Welcome!</h1>
+    </div>
+        <hr>
+<div class="container">
         <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <input name="username" type="text" placeholder="Enter Your Username" />
-        <input name="password" type="password" placeholder="Enter Your password" />
-        <input type="submit" value="login" />
+        <div class="bg" style="padding-top: 2em;">
+            <input name="username" type="text" placeholder="Enter Your Username" />
+            <input name="password" type="password" placeholder="Enter Your password" />
+            <input type="submit" value="login" />
+        </div>
     </form>
     <form action="{% url 'createAccount' %}" method="post">
         {% csrf_token %}
+        <div class="bg">
         <input name="name" type="text" placeholder="Enter Your name" />
         <input name="email" type="email" placeholder="Enter Your Email" />
         <input name="password" type="password" placeholder="Enter Your password" />
         <input type="submit" value="Sign Up" />
+        </div>
     </form>  
+</div>
+
+{% load static %}
+<img src="{% static 'undraw_My_universe_re_txot.svg' %}" alt="My image">
 </body>
 </html>
